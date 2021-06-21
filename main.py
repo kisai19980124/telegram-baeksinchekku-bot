@@ -9,10 +9,8 @@ logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger()
 
-# Getting mode, so we could define run function for local and Heroku setup
-mode = os.getenv("MODE")
 TOKEN = os.getenv("TOKEN")
-
+PORT = int(os.environ.get('PORT', 5000))
 
 
 def callback_minute(context: telegram.ext.CallbackContext):
