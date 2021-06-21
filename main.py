@@ -11,7 +11,7 @@ import ssl
 # Enabling logging
 ssl._create_default_https_context = ssl._create_unverified_context
 # URLの指定
-html = urlopen(WAKUCHIN)
+
 
 
 
@@ -24,6 +24,7 @@ TOKEN = os.getenv("TOKEN")
 HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME")
 SOMECHATID= os.getenv("SOMECHATID")
 WAKUCHIN = os.getenv("WAKUCHIN")
+html = urlopen(WAKUCHIN)
 PORT = int(os.environ.get('PORT', 8443))
 
 
@@ -32,7 +33,7 @@ def callback_minute(context: telegram.ext.CallbackContext):
     table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
     tabledata = table.findAll("td")
     if '満了' in tabledata[1].string == False:
-        context.bot.send_message(chat_id=SOMECHATID, text=tabledata[1])
+        context.bot.send_message(chat_id=SOMECHATID, text=tabledata[1].string)
     #else:
         
     #context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
