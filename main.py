@@ -36,7 +36,7 @@ def callback_minute(context: telegram.ext.CallbackContext):
 
     
 def main():
-    u = Updater('TOKEN', use_context=True)
+    u = Updater(TOKEN, use_context=True)
     j = u.job_queue
     job_minute = j.run_repeating(callback_minute, interval=60, first=0)
     u.start_polling()
