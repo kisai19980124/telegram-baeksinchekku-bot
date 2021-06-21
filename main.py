@@ -5,11 +5,16 @@ import sys
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import telegram.ext
 # Enabling logging
+
+
+
+                      
 logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 logger = logging.getLogger()
 
 TOKEN = os.getenv("TOKEN")
+HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME")
 PORT = int(os.environ.get('PORT', 8443))
 
 
@@ -51,10 +56,12 @@ def main():
     j = updater .job_queue
     job_minute = j.run_repeating(callback_minute, interval=60, first=0)
     updater.start_webhook(listen="0.0.0.0",
-                          port=int(PORT),
-                          url_path=TOKEN)
-    updater.bot.setWebhook('https://yourherokuappname.herokuapp.com/' + TOKEN)
+                          port=PORT,
+                          url_path=TOKEN,
+                          webhook_url="https://<appname>.herokuapp.com/" + TOKEN)
     updater.start_polling()
 
+
+                      
 if __name__ == '__main__':
     main()
