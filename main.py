@@ -2,8 +2,7 @@ import logging
 import os
 import random
 import sys
-
-from telegram.ext import Updater, CommandHandler
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import telegram.ext
 # Enabling logging
 logging.basicConfig(level=logging.INFO,
