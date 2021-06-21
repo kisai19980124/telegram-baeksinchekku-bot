@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO,
 logger = logging.getLogger()
 
 TOKEN = os.getenv("TOKEN")
-PORT = int(os.environ.get('PORT', 5000))
+PORT = int(os.environ.get('PORT', 8443))
 
 
 def callback_minute(context: telegram.ext.CallbackContext):
