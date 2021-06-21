@@ -4,7 +4,14 @@ import random
 import sys
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import telegram.ext
+import re
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+import ssl
 # Enabling logging
+ssl._create_default_https_context = ssl._create_unverified_context
+# URLの指定
+html = urlopen(WAKUCHIN)
 
 
 
@@ -20,8 +27,14 @@ PORT = int(os.environ.get('PORT', 8443))
 
 
 def callback_minute(context: telegram.ext.CallbackContext):
-
-    context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
+    bsObj = BeautifulSoup(html, "html.parser")
+    table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
+    tabledata = table.findAll("td")
+    if '満了' in tabledata[1].string == False:
+        context.bot.send_message(chat_id=SOMECHATID, text=tabledata[1])
+    #else:
+        
+    #context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
 
 
 def start(update, context):
