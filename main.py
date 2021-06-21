@@ -23,6 +23,7 @@ logger = logging.getLogger()
 TOKEN = os.getenv("TOKEN")
 HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME")
 SOMECHATID= os.getenv("SOMECHATID")
+WAKUCHIN = os.getenv("WAKUCHIN")
 PORT = int(os.environ.get('PORT', 8443))
 
 
