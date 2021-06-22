@@ -58,7 +58,7 @@ def callback_minute(context: telegram.ext.CallbackContext):
 
 def start(update, context):
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
+    update.message.reply_text('こんにちは！/check で東京大規模接種センターの予約数を確認できます．')
 
 def help(update, context):
     """Send a message when the command /help is issued."""
