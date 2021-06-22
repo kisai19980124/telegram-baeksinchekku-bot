@@ -29,7 +29,9 @@ PORT = int(os.environ.get('PORT', 8443))
 
 
 def callback_minute(context: telegram.ext.CallbackContext):
+    print("0")
     bsObj = BeautifulSoup(html, "html.parser")
+    print("1")
     #print(bsObj.findAll("table", {"class":"tbl--type1"}))
     table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
     #print("table")
@@ -37,9 +39,9 @@ def callback_minute(context: telegram.ext.CallbackContext):
     if '満了' in tabledata[1].string == False:
         #print(tabledata[1].string)
         context.bot.send_message(chat_id=SOMECHATID, text=tabledata[1].string)
-    else:
+    #else:
         
-        context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
+    #    context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
     return
 
 def start(update, context):
