@@ -30,12 +30,12 @@ PORT = int(os.environ.get('PORT', 8443))
 
 def callback_minute(context: telegram.ext.CallbackContext):
     bsObj = BeautifulSoup(html, "html.parser")
-    print(bsObj.findAll("table", {"class":"tbl--type1"}))
+    #print(bsObj.findAll("table", {"class":"tbl--type1"}))
     table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
-    print("table")
+    #print("table")
     tabledata = table.findAll("td")
     if '満了' in tabledata[1].string == False:
-        print(tabledata[1].string)
+        #print(tabledata[1].string)
         context.bot.send_message(chat_id=SOMECHATID, text=tabledata[1].string)
     #else:
         
@@ -58,7 +58,7 @@ def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 def main():
-    updater  = Updater(TOKEN, use_context=True)
+    updater  = Updater(TOKEN, use_context=True, request_kwargs={'read_timeout': 6, 'connect_timeout': 7})
         # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
