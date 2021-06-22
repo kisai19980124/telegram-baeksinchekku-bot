@@ -37,9 +37,9 @@ def callback_minute(context: telegram.ext.CallbackContext):
     if '満了' in tabledata[1].string == False:
         #print(tabledata[1].string)
         context.bot.send_message(chat_id=SOMECHATID, text=tabledata[1].string)
-    #else:
+    else:
         
-    #context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
+        context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
     return
 
 def start(update, context):
@@ -58,7 +58,7 @@ def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
 def main():
-    updater  = Updater(TOKEN, use_context=True, request_kwargs={'read_timeout': 6, 'connect_timeout': 7})
+    updater  = Updater(TOKEN, use_context=True, request_kwargs={'read_timeout': 8, 'connect_timeout': 10})
         # Get the dispatcher to register handlers
     dp = updater.dispatcher
 
