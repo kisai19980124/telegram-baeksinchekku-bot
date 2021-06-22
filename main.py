@@ -55,6 +55,26 @@ def echo(update, context):
     """Echo the user message."""
     update.message.reply_text(update.message.text)
 
+def check(update, context):
+    # URLの指定
+    html = urlopen(WAKUCHIN)
+    bsObj = BeautifulSoup(html, "html.parser")
+
+    # テーブルを指定
+    table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
+    tabledata = table.findAll("td")
+    tablehead = table.findAll("th")
+    try:
+        text1=tablehead[0].string+": \n"+"　"+tabledata[0].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[1].string
+        update.message.reply_text(text1)
+    except IndexError:
+        print("日程が公開されていません．")
+    try:
+        text1=tablehead[0].string+": \n"+"　"+tabledata[3].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[4].string
+        update.message.reply_text(text1)
+    except IndexError:
+        pass
+    
 def error(update, context):
     """Log Errors caused by Updates."""
     logger.warning('Update "%s" caused error "%s"', update, context.error)
@@ -66,6 +86,7 @@ def main():
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("check", check))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
