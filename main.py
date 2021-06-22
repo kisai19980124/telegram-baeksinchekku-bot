@@ -30,6 +30,7 @@ PORT = int(os.environ.get('PORT', 8443))
 
 def callback_minute(context: telegram.ext.CallbackContext):
     bsObj = BeautifulSoup(html, "html.parser")
+    print(bsObj.findAll("table", {"class":"tbl--type1"}))
     table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
     print("table")
     tabledata = table.findAll("td")
