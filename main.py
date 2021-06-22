@@ -29,18 +29,31 @@ PORT = int(os.environ.get('PORT', 8443))
 
 
 def callback_minute(context: telegram.ext.CallbackContext):
-    html = urlopen(WAKUCHIN)
-    bsObj = BeautifulSoup(html, "html.parser")
-    #print(bsObj.findAll("table", {"class":"tbl--type1"}))
-    table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
-    #print("table")
-    tabledata = table.findAll("td")
-    if '満了' in tabledata[1].string == False:
-        #print(tabledata[1].string)
-        context.bot.send_message(chat_id=SOMECHATID, text=tabledata[1].string)
-    #else:
+    try:
+        html = urlopen(WAKUCHIN)
+        bsObj = BeautifulSoup(html, "html.parser")
+        #print(bsObj.findAll("table", {"class":"tbl--type1"}))
+        table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
+        #print("table")
+        tabledata = table.findAll("td")
+        tablehead = table.findAll("th")
         
-    #    context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
+        try:
+            if '満了' in tabledata[1].string == False:
+                text1=tablehead[0].string+": \n"+"　"+tabledata[0].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[1].string
+                context.bot.send_message(chat_id=SOMECHATID, text=text1)
+        except IndexError:
+            pass
+        try:
+            if '満了' in tabledata[4].string == False:
+                text2=tablehead[0].string+": \n"+"　"+tabledata[3].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[4].string
+                context.bot.send_message(chat_id=SOMECHATID, text=text2)
+        except IndexError:
+            pass
+        
+    except:
+        pass
+        #    context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
     return
 
 def start(update, context):
@@ -56,24 +69,28 @@ def echo(update, context):
     update.message.reply_text(update.message.text)
 
 def check(update, context):
-    # URLの指定
-    html = urlopen(WAKUCHIN)
-    bsObj = BeautifulSoup(html, "html.parser")
+    try:
+    
+        # URLの指定
+        html = urlopen(WAKUCHIN)
+        bsObj = BeautifulSoup(html, "html.parser")
 
-    # テーブルを指定
-    table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
-    tabledata = table.findAll("td")
-    tablehead = table.findAll("th")
-    try:
-        text1=tablehead[0].string+": \n"+"　"+tabledata[0].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[1].string
-        update.message.reply_text(text1)
-    except IndexError:
-        print("日程が公開されていません．")
-    try:
-        text1=tablehead[0].string+": \n"+"　"+tabledata[3].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[4].string
-        update.message.reply_text(text1)
-    except IndexError:
-        pass
+        # テーブルを指定
+        table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
+        tabledata = table.findAll("td")
+        tablehead = table.findAll("th")
+        try:
+            text1=tablehead[0].string+": \n"+"　"+tabledata[0].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[1].string
+            update.message.reply_text(text1)
+        except IndexError:
+            print("日程が公開されていません．")
+        try:
+            text2=tablehead[0].string+": \n"+"　"+tabledata[3].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[4].string
+            update.message.reply_text(text2)
+        except IndexError:
+            pass
+    except:
+        print("データを取得できませんでした．")
     
 def error(update, context):
     """Log Errors caused by Updates."""
