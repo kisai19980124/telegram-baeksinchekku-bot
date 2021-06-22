@@ -40,7 +40,7 @@ def callback_minute(context: telegram.ext.CallbackContext):
     #else:
         
     #context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
-
+    return
 
 def start(update, context):
     """Send a message when the command /start is issued."""
@@ -79,7 +79,7 @@ def main():
                           url_path=TOKEN,
                           webhook_url="https://"+HEROKU_APP_NAME+".herokuapp.com/" + TOKEN)
     updater.start_polling()
-
+    updater.idle()
 
                       
 if __name__ == '__main__':
