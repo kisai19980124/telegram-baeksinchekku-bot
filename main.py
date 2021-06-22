@@ -24,14 +24,13 @@ TOKEN = os.getenv("TOKEN")
 HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME")
 SOMECHATID= os.getenv("SOMECHATID")
 WAKUCHIN = os.getenv("WAKUCHIN")
-html = urlopen(WAKUCHIN)
+
 PORT = int(os.environ.get('PORT', 8443))
 
 
 def callback_minute(context: telegram.ext.CallbackContext):
-    print("0")
+    html = urlopen(WAKUCHIN)
     bsObj = BeautifulSoup(html, "html.parser")
-    print("1")
     #print(bsObj.findAll("table", {"class":"tbl--type1"}))
     table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
     #print("table")
