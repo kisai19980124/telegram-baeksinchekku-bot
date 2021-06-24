@@ -27,8 +27,10 @@ WAKUCHIN = os.getenv("WAKUCHIN")
 
 PORT = int(os.environ.get('PORT', 8443))
 
-
-def callback_minute(context: telegram.ext.CallbackContext):
+# def callback_enable(update: Update, context: telegram.ext.CallbackContext):
+    # job_minute.enabled = True
+    
+def callback_minute( context: telegram.ext.CallbackContext):
     try:
         html = urlopen(WAKUCHIN)
         bsObj = BeautifulSoup(html, "html.parser")
@@ -39,13 +41,18 @@ def callback_minute(context: telegram.ext.CallbackContext):
         tablehead = table.findAll("th")
         
         try:
-            if '満了' in tabledata[1].string == False:
+            if '満了' in tabledata[1].string:
+                pass
+            else:
                 text1=tablehead[0].string+": \n"+"　"+tabledata[0].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[1].string
                 context.bot.send_message(chat_id=SOMECHATID, text=text1)
+                # context.
         except IndexError:
             pass
         try:
-            if '満了' in tabledata[4].string == False:
+            if '満了' in tabledata[4].string:
+                pass
+            else:
                 text2=tablehead[0].string+": \n"+"　"+tabledata[3].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[4].string
                 context.bot.send_message(chat_id=SOMECHATID, text=text2)
         except IndexError:
@@ -112,7 +119,7 @@ def main():
     dp.add_error_handler(error)
     
     j = updater .job_queue
-    job_minute = j.run_repeating(callback_minute, interval=60, first=0)
+    job_minute = j.run_repeating(callback_minute, interval=300, first=0)
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
                           url_path=TOKEN,
