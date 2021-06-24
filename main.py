@@ -24,7 +24,8 @@ TOKEN = os.getenv("TOKEN")
 HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME")
 SOMECHATID= os.getenv("SOMECHATID")
 WAKUCHIN = os.getenv("WAKUCHIN")
-
+textichi=""
+textni=""
 PORT = int(os.environ.get('PORT', 8443))
 
 # def callback_enable(update: Update, context: telegram.ext.CallbackContext):
@@ -44,8 +45,12 @@ def callback_minute( context: telegram.ext.CallbackContext):
             if '満了' in tabledata[1].string:
                 pass
             else:
-                text1=tablehead[0].string+": \n"+"　"+tabledata[0].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[1].string
-                context.bot.send_message(chat_id=SOMECHATID, text=text1)
+                if tabledata[1].string == textichi:
+                    pass
+                else:               
+                    text1=tablehead[0].string+": \n"+"　"+tabledata[0].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[1].string
+                    context.bot.send_message(chat_id=SOMECHATID, text=text1)
+                    textichi=tabledata[1].string
                 # context.
         except IndexError:
             pass
@@ -53,8 +58,13 @@ def callback_minute( context: telegram.ext.CallbackContext):
             if '満了' in tabledata[4].string:
                 pass
             else:
-                text2=tablehead[0].string+": \n"+"　"+tabledata[3].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[4].string
-                context.bot.send_message(chat_id=SOMECHATID, text=text2)
+                if tabledata[4].string == textichi:
+                    pass
+                else:
+                    text2=tablehead[0].string+": \n"+"　"+tabledata[3].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[4].string
+                    context.bot.send_message(chat_id=SOMECHATID, text=text2)
+                    textni=tabledata[4].string
+                
         except IndexError:
             pass
         
@@ -118,8 +128,8 @@ def main():
     # log all errors
     dp.add_error_handler(error)
     
-    j = updater .job_queue
-    job_minute = j.run_repeating(callback_minute, interval=900, first=0)
+    j = updater.job_queue
+    job_minute = j.run_repeating(callback_minute, interval=60, first=0)
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
                           url_path=TOKEN,
