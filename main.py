@@ -40,7 +40,8 @@ def callback_minute( context: telegram.ext.CallbackContext):
         #print("table")
         tabledata = table.findAll("td")
         tablehead = table.findAll("th")
-        
+        moji=tabledata[4].string+textni
+        context.bot.send_message(chat_id=SOMECHATID, text=moji)
         try:
             if '満了' in tabledata[1].string:
                 pass
@@ -55,12 +56,12 @@ def callback_minute( context: telegram.ext.CallbackContext):
         except IndexError:
             pass
             
+            
         try:
             if '満了' in tabledata[4].string:
                 pass
             else:
-                moji=tabledata[4].string+textni
-                context.bot.send_message(chat_id=SOMECHATID, text=moji)
+                
                 if tabledata[4].string == textni:
                     pass
                 else:
