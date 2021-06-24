@@ -119,7 +119,7 @@ def main():
     dp.add_error_handler(error)
     
     j = updater .job_queue
-    job_minute = j.run_repeating(callback_minute, interval=300, first=0)
+    job_minute = j.run_repeating(callback_minute, interval=900, first=0)
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
                           url_path=TOKEN,
