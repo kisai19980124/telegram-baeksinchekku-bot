@@ -24,14 +24,15 @@ TOKEN = os.getenv("TOKEN")
 HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME")
 SOMECHATID= os.getenv("SOMECHATID")
 WAKUCHIN = os.getenv("WAKUCHIN")
-textichi=""
-textni=""
+textichi="default"
+textni="default"
 PORT = int(os.environ.get('PORT', 8443))
 
 # def callback_enable(update: Update, context: telegram.ext.CallbackContext):
     # job_minute.enabled = True
     
 def callback_minute( context: telegram.ext.CallbackContext):
+
     try:
         html = urlopen(WAKUCHIN)
         bsObj = BeautifulSoup(html, "html.parser")
@@ -40,8 +41,7 @@ def callback_minute( context: telegram.ext.CallbackContext):
         #print("table")
         tabledata = table.findAll("td")
         tablehead = table.findAll("th")
-        moji=tabledata[4].string+textni
-        context.bot.send_message(chat_id=SOMECHATID, text=moji)
+
         try:
             if '満了' in tabledata[1].string:
                 pass
@@ -50,31 +50,72 @@ def callback_minute( context: telegram.ext.CallbackContext):
                     pass
                 else:               
                     text1=tablehead[0].string+": \n"+"　"+tabledata[0].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[1].string
-                    context.bot.send_message(chat_id=SOMECHATID, text=text1)
+                    print(text1)
                     textichi=tabledata[1].string
                 # context.
         except IndexError:
             pass
-            
-            
         try:
             if '満了' in tabledata[4].string:
                 pass
             else:
-                
+                moji=tabledata[4].string+textni
+                print(moji)
                 if tabledata[4].string == textni:
                     pass
                 else:
                     text2=tablehead[0].string+": \n"+"　"+tabledata[3].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[4].string
                     context.bot.send_message(chat_id=SOMECHATID, text=text2)
-                    textni=tabledata[4].string
-                
+                    print(text2)
+                    #textni=tabledata[4].string
+
         except IndexError:
             pass
-        
     except:
         pass
-        #    context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
+    # try:
+        # html = urlopen(WAKUCHIN)
+        # bsObj = BeautifulSoup(html, "html.parser")
+        # #print(bsObj.findAll("table", {"class":"tbl--type1"}))
+        # table = bsObj.findAll("table", {"class":"tbl--type1"})[0]
+        # #print("table")
+        # tabledata = table.findAll("td")
+        # tablehead = table.findAll("th")
+        # moji=tabledata[4].string+textni
+        # context.bot.send_message(chat_id=SOMECHATID, text=moji)
+        # try:
+            # if '満了' in tabledata[1].string:
+                # pass
+            # else:
+                # if tabledata[1].string == textichi:
+                    # pass
+                # else:               
+                    # text1=tablehead[0].string+": \n"+"　"+tabledata[0].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[1].string
+                    # context.bot.send_message(chat_id=SOMECHATID, text=text1)
+                    # textichi=tabledata[1].string
+                # # context.
+        # except IndexError:
+            # pass
+            
+            
+        # try:
+            # if '満了' in tabledata[4].string:
+                # pass
+            # else:
+                
+                # if tabledata[4].string == textni:
+                    # pass
+                # else:
+                    # text2=tablehead[0].string+": \n"+"　"+tabledata[3].string+"\n"+tablehead[1].string+": \n"+"　"+tabledata[4].string
+                    # context.bot.send_message(chat_id=SOMECHATID, text=text2)
+                    # textni=tabledata[4].string
+                
+        # except IndexError:
+            # pass
+        
+    # except:
+        # pass
+        # #    context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
     return
 
 def start(update, context):
