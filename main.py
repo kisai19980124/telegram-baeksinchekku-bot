@@ -30,7 +30,7 @@ PORT = int(os.environ.get('PORT', 8443))
 # def callback_enable(update: Update, context: telegram.ext.CallbackContext):
     # job_minute.enabled = True
     
-def callback_minute(update: Update, context: telegram.ext.CallbackContext):
+def callback_minute( context: telegram.ext.CallbackContext):
     try:
         html = urlopen(WAKUCHIN)
         bsObj = BeautifulSoup(html, "html.parser")
