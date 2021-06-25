@@ -121,7 +121,7 @@ def main():
     
 
     j = updater.job_queue
-    job_minute = j.run_repeating(callback_minute, interval=900, first=0)
+    job_minute = j.run_repeating(callback_minute, interval=3600, first=0)
 
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
