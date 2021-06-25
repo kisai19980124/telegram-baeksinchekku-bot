@@ -59,6 +59,7 @@ def callback_minute( context: telegram.ext.CallbackContext):
             pass
         
     except:
+    print("error")
         pass
         #    context.bot.send_message(chat_id=SOMECHATID, text='One message every minute')
     return
