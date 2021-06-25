@@ -119,8 +119,13 @@ def main():
     # log all errors
     dp.add_error_handler(error)
     
+<<<<<<< HEAD
     j = updater.job_queue
     job_minute = j.run_repeating(callback_minute, interval=900, first=0)
+=======
+    j = updater .job_queue
+    job_minute = j.run_repeating(callback_minute, interval=300, first=0)
+>>>>>>> parent of 1342c1c (Update main.py)
     updater.start_webhook(listen="0.0.0.0",
                           port=PORT,
                           url_path=TOKEN,
