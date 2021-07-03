@@ -140,6 +140,7 @@ def main_handle(sticker_number,chat_id,main_message,all_stickers,title):
 										emojis = rnd_emoji)
 			except:
 				#con_timer.cancel()
+                print("143")
 				return
 		else:
 			a_len, a = getPack(sticker_number)
@@ -204,7 +205,7 @@ def main_handle_for_message_sticker(sticker_number,chat_id,main_message,all_stic
 	#threading.Timer(20,con_req_for_massage_sticker,[sticker_number,chat_id,main_message,all_stickers,title]).start()
 	#con_timer = threading.Timer(give_up_time,con_req_for_massage_sticker,[sticker_number,chat_id,main_message,all_stickers,title])
 	#con_timer.start()
-
+    print("207 line")
 	head_sticker=0
 	temp_message = title+"\n發現"+str(len(all_stickers))+"張貼圖\n\nFound "+str(len(all_stickers))+" stickers\n"
 	for i in range(a_len,len(all_stickers)):
