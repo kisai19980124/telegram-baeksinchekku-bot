@@ -1,7 +1,7 @@
 python-telegram-bot
 bs4
 numpy
-PIL
+Pillow
 numba
 urllib
 flask
