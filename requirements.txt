@@ -5,3 +5,4 @@ Pillow
 numba
 urllib3
 flask
+requests
