@@ -322,19 +322,16 @@ def con_req_for_massage_sticker(sticker_number,chat_id,main_message,all_stickers
 		return
 
 
-@app.route('/continue',methods=['POST'])
 def continue_():
 	all_data = request.form
 	threading.Timer(0,main_handle,[all_data["sticker_number"],all_data["chat_id"],all_data["main_message"],json.loads(all_data["all_stickers"]),all_data["title"]]).start()
 	return 'ok'
 
-@app.route('/continue2',methods=['POST'])
 def continue2_():
 	all_data = request.form
 	threading.Timer(0,main_handle_for_message_sticker,[all_data["sticker_number"],all_data["chat_id"],all_data["main_message"],json.loads(all_data["all_stickers"]),all_data["title"]]).start()
 	return 'ok'
 
-@jit(nopython=True)
 def equalStr(a, b):
 	if len(a)!=len(b):
 		return False
@@ -343,14 +340,12 @@ def equalStr(a, b):
 			return False
 	return True
 
-@jit(nopython=True)
 def aIsInb(a, b):
 	for i in b:
 		if equalStr(a,i):
 			return True
 	return False
 
-@jit(nopython=True)
 def find_sticker_sites(text):
 	all_sticker =  [""]
 	x = text.find('"mdCMN09Image"')
@@ -381,7 +376,6 @@ def find_sticker_sites(text):
 	return out
 
 
-@jit(nopython=True)
 def find_message_sticker_sites(text):
 	all_sticker =  [[""]]
 	x = text.find('"mdCMN09Li FnStickerPreviewItem"')
@@ -462,7 +456,6 @@ def help(update, context):
     # """Echo the user message."""
     # update.message.reply_text(update.message.text)
     
-@app.route('/hook', methods=['POST'])
 def webhook_handler():
 	if request.method == "POST":
 		update = telegram.Update.de_json(request.get_json(force=True), bot)
