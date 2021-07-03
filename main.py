@@ -462,7 +462,7 @@ def webhook_handler():
 		dispatcher.process_update(update)
 	return 'ok'
     
-def reply_handler(update: Update, context: CallbackContext):
+def reply_handler(update, context):
 
 	text = update.message.text
 
