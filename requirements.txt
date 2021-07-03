@@ -1,2 +1,7 @@
 python-telegram-bot
 bs4
+numpy
+PIL
+numba
+urllib
+flask
