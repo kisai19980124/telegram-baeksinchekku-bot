@@ -4,6 +4,7 @@ import random
 import sys
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import telegram.ext
+from telegram import Update, Bot
 import re
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
@@ -462,7 +463,7 @@ def webhook_handler():
 		dispatcher.process_update(update)
 	return 'ok'
     
-def reply_handler(update, context):
+def reply_handler(update: Update, context: CallbackContext):
 
 	text = update.message.text
 
