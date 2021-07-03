@@ -3,5 +3,5 @@ bs4
 numpy
 Pillow
 numba
-urllib
+urllib3
 flask
